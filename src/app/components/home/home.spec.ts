@@ -18,4 +18,12 @@ describe('Home', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  //it('should render the navbar inside the home header', () => {
+    // Buscar dentro del HTML de HOME el elemento <header>
+    //const header = fixture.nativeElement.querySelector('header');
+
+    // Comprueba que dentro del header esté <nav> 
+    //expect(header.querySelector('nav[aria-label="Navegación principal"]')).toBeTruthy();
+  //});
 });

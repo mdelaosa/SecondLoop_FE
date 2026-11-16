@@ -1,25 +1,40 @@
 .navbar {
     width: 100%;
+    min-height: 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 4rem;
-    background-color: #FAF5EF;
-    box-sizing: border-box;
+    gap: 1.5rem;
+    padding: 1rem clamp(1rem, 5vw, 4rem);
+    background-color: #faf5ef;
     border-bottom: 1px solid rgba(0, 107, 84, 0.15);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-weight: bold;
-    font-size: 1.25rem;
+    gap: 0.65rem;
     color: #00675B;
+
+    &::before {
+        content: "";
+        width: 0.7rem;
+        height: 0.7rem;
+        border: 2px solid currentColor;
+        border-radius: 50%;
+        box-shadow: 0.22rem 0 0 -1px #faf5ef, 0.22rem 0 0 1px currentColor;
+    }
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
 }
 
 .nav-actions {
     display: flex;
+    flex-shrink: 0;
     gap: 1rem;
     align-items: center;
 }
@@ -27,12 +42,15 @@
 .btn-text {
     background: none;
     border: none;
-    padding: 0.6rem 1.4rem;
+    padding: 0.65rem 1rem;
     border-radius: 20px;
+    font-family: inherit;
     font-weight: 600;
     color: #2D3748;
     cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
 }
+
 .btn-text:hover {
     background-color: rgba(0, 107, 84, 0.08);
     color: #00675B;
@@ -42,12 +60,49 @@
     background-color: #00675B;
     color: white;
     border: none;
-    padding: 0.6rem 1.4rem;
+    padding: 0.7rem 1.25rem;
     border-radius: 20px;
+    font-family: inherit;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
 }
 
 .btn-primary:hover {
     background-color: #005442;
+    transform: translateY(-1px);
+}
+
+.btn-text:focus-visible,
+.btn-primary:focus-visible {
+    outline: 3px solid rgba(0, 103, 91, 0.35);
+    outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        min-height: 4.5rem;
+        gap: 0.75rem;
+        padding-inline: 1rem;
+    }
+
+    .logo {
+        gap: 0.5rem;
+    }
+
+    .logo-text {
+        font-size: 1.1rem;
+    }
+
+    .nav-actions {
+        gap: 0.25rem;
+    }
+
+    .btn-text {
+        padding-inline: 0.6rem;
+    }
+
+    .btn-primary {
+        padding-inline: 0.85rem;
+    }
 }
