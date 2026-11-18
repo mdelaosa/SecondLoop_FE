@@ -66,3 +66,7 @@ button {
   font-size: 13px;
   margin-top: 16px;
 }
+
+.error { color: #b3261e; font-size: 12px; margin: 4px 0 0; }
+
+button:disabled { opacity: 0.5; cursor: not-allowed; }
