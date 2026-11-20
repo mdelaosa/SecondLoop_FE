@@ -1,0 +1,162 @@
+@if (usuario(); as u) {
+  <main class="perfil">
+    <!-- Cabecera de perfil (Figma 23:462) -->
+    <section class="hero">
+      <div class="avatar avatar--lg">
+        @if (u.foto) {
+          <img [src]="u.foto" [alt]="u.username" />
+        } @else {
+          {{ iniciales(u.username) }}
+        }
+      </div>
+
+      <div class="hero__info">
+        <div class="hero__texto">
+          <p class="eyebrow">Perfil verificado</p>
+          <h1 class="hero__nombre">{{ u.username }}</h1>
+          <p class="meta">{{ u.localizacion }} · En SecondLoop desde {{ anio(u.creado_en) }}</p>
+          @if (usuarioPropio(); as p) {
+            <p class="meta">{{ p.nombre }} {{ p.apellidos }} · {{ p.email }}</p>
+          }
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat__valor">{{ formatoNota(u.valoracion_media) }}</span>
+            <span class="stat__label">Valoración</span>
+          </div>
+          <div class="stat">
+            <span class="stat__valor">{{ u.num_valoraciones }}</span>
+            <span class="stat__label">Valoraciones</span>
+          </div>
+        </div>
+      </div>
+
+      @if (esPropio) {
+        <!-- Sin lógica todavía -->
+        <button type="button" class="btn-outline">Editar perfil</button>
+      } @else {
+        <!-- Sin lógica todavía -->
+        <button type="button" class="btn-outline">Reportar usuario</button>
+      }
+    </section>
+
+    <section class="contenido">
+      <div class="contenido__cabecera">
+        <div>
+          <p class="eyebrow">El armario de {{ nombreCorto() }}</p>
+          @if (pestana() === 'armario') {
+            <h2 class="titulo">
+              {{ articulos().length }} {{ articulos().length === 1 ? 'prenda' : 'prendas' }}
+              {{ esPropio ? '' : articulos().length === 1 ? 'disponible' : 'disponibles' }}
+            </h2>
+          } @else {
+            <h2 class="titulo">Valoraciones de {{ nombreCorto() }}</h2>
+          }
+        </div>
+
+        <nav class="tabs" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            class="tab"
+            [class.tab--activa]="pestana() === 'armario'"
+            [attr.aria-selected]="pestana() === 'armario'"
+            (click)="pestana.set('armario')"
+          >
+            Armario ({{ articulos().length }})
+          </button>
+          <button
+            type="button"
+            role="tab"
+            class="tab"
+            [class.tab--activa]="pestana() === 'valoraciones'"
+            [attr.aria-selected]="pestana() === 'valoraciones'"
+            (click)="pestana.set('valoraciones')"
+          >
+            Valoraciones ({{ u.num_valoraciones }})
+          </button>
+          <!-- Pestaña Favoritos: pendiente
+          <button type="button" role="tab" class="tab">Favoritos</button>
+          -->
+        </nav>
+      </div>
+
+      @if (pestana() === 'armario') {
+        @if (esPropio) {
+          <!-- Sin lógica todavía: enlazará a la creación de artículo -->
+          <button type="button" class="btn-primario">+ Subir prenda</button>
+        }
+
+        <div class="grid">
+          @for (a of articulos(); track a.id) {
+            <article class="card">
+              <div class="card__foto">
+                <img [src]="a.foto_principal" [alt]="a.titulo" />
+                @if (esPropio) {
+                  <span class="badge" [class]="'badge--' + a.estado.toLowerCase()">
+                    {{ etiquetaEstado[a.estado] }}
+                  </span>
+                }
+              </div>
+              <div class="card__info">
+                @if (a.marca) {
+                  <p class="card__marca">{{ a.marca }}</p>
+                }
+                <p class="card__titulo">{{ a.titulo }}</p>
+                <p class="card__meta">{{ a.talla === 'UNICA' ? 'Única' : a.talla }} · {{ etiquetaGenero[a.genero] }}</p>
+                <p class="card__precio">{{ a.precio }} €</p>
+              </div>
+            </article>
+          } @empty {
+            <p class="vacio">Todavía no hay prendas en este armario.</p>
+          }
+        </div>
+      } @else {
+        <!-- Valoraciones (Figma 23:744) -->
+        <div class="reviews">
+          <aside class="resumen">
+            <div class="resumen__media">
+              <span class="resumen__nota">{{ formatoNota(u.valoracion_media) }}</span>
+              <span class="estrellas">{{ estrellas(u.valoracion_media) }}</span>
+              <span class="meta">{{ u.num_valoraciones }} valoraciones</span>
+            </div>
+            <h3 class="subtitulo">Resumen</h3>
+            @for (r of resumen(); track r.estrellas) {
+              <div class="barra">
+                <span>{{ r.estrellas }} ★</span>
+                <span class="barra__pista"><span class="barra__relleno" [style.width.%]="r.porcentaje"></span></span>
+                <span class="barra__n">{{ r.cantidad }}</span>
+              </div>
+            }
+          </aside>
+
+          <div class="opiniones">
+            <h3 class="subtitulo opiniones__titulo">Últimas opiniones</h3>
+            @for (v of valoraciones(); track $index) {
+              <article class="opinion">
+                <div class="avatar avatar--sm">
+                  @if (v.emisor.foto) {
+                    <img [src]="v.emisor.foto" [alt]="v.emisor.username" />
+                  } @else {
+                    {{ iniciales(v.emisor.username) }}
+                  }
+                </div>
+                <div>
+                  <div class="opinion__cabecera">
+                    <strong>{{ v.emisor.username }}</strong>
+                    <span class="estrellas">{{ estrellas(v.puntuacion) }}</span>
+                    <time class="opinion__fecha" [attr.datetime]="v.fecha">{{ fecha(v.fecha) }}</time>
+                  </div>
+                  <p class="opinion__texto">{{ v.comentario }}</p>
+                </div>
+              </article>
+            } @empty {
+              <p class="vacio">Aún no hay valoraciones.</p>
+            }
+          </div>
+        </div>
+      }
+    </section>
+  </main>
+}
