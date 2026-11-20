@@ -1,0 +1,33 @@
+<section class="sobre" aria-labelledby="sobre-titulo">
+  <div>
+    <p class="sobre__eyebrow">Los detalles importan</p>
+    <h2 class="sobre__titulo" id="sobre-titulo">Sobre este artículo</h2>
+
+    <dl class="detalles">
+      @for (d of detalles(); track d.etiqueta) {
+        <div class="detalles__celda">
+          <dt>{{ d.etiqueta }}</dt>
+          <dd>{{ d.valor }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+
+  <figure class="mapa">
+    <div class="mapa__zona" aria-hidden="true">
+      <span class="mapa__calle mapa__calle--1"></span>
+      <span class="mapa__calle mapa__calle--2"></span>
+      <span class="mapa__calle mapa__calle--3"></span>
+      <span class="mapa__pin">
+        <img src="assets/articulo-detalle/icon-map-pin.svg" alt="" width="20" height="20" />
+      </span>
+    </div>
+    <figcaption class="mapa__pie">
+      <img src="assets/articulo-detalle/icon-map.svg" alt="" width="20" height="20" />
+      <span>
+        <strong>Zona aproximada del vendedor</strong>
+        <span>{{ articulo().ubicacion }}</span>
+      </span>
+    </figcaption>
+  </figure>
+</section>

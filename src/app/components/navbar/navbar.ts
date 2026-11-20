@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   imports: [],
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   templateUrl: './navbar.html',
 })
 export class Navbar {
-  userRole: 'guest' | 'user' | 'moderator' | 'admin' = 'guest';
+  @Input() userRole: 'guest' | 'user' | 'moderator' | 'admin' = 'guest';
 }

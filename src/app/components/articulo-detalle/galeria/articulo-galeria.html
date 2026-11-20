@@ -1,0 +1,36 @@
+<section class="galeria" aria-label="Fotos del artículo">
+  <div class="galeria__principal">
+    <img class="galeria__imagen" [src]="imagenActual()" [alt]="titulo()" />
+
+    <button
+      type="button"
+      class="galeria__favorito"
+      [class.galeria__favorito--activo]="favorito()"
+      [attr.aria-pressed]="favorito()"
+      [attr.aria-label]="favorito() ? 'Quitar de favoritos' : 'Añadir a favoritos'"
+      (click)="alternarFavorito()"
+    >
+      <img src="assets/articulo-detalle/icon-heart.svg" alt="" width="20" height="20" />
+    </button>
+
+    <span class="galeria__contador">{{ seleccionada() + 1 }} / {{ imagenes().length }}</span>
+  </div>
+
+  <div class="galeria__miniaturas">
+    @for (imagen of miniaturas(); track imagen; let i = $index, ultima = $last) {
+      <button
+        type="button"
+        class="miniatura"
+        [class.miniatura--activa]="i === seleccionada()"
+        [attr.aria-label]="'Ver foto ' + (i + 1)"
+        [attr.aria-current]="i === seleccionada()"
+        (click)="seleccionar(i)"
+      >
+        <img class="miniatura__imagen" [src]="imagen" alt="" />
+        @if (ultima && restantes() > 0) {
+          <span class="miniatura__mas">+{{ restantes() }}</span>
+        }
+      </button>
+    }
+  </div>
+</section>

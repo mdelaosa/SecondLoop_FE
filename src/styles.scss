@@ -12,3 +12,12 @@ body {
 *, *::before, *::after {
     box-sizing: inherit;
 }
+
+:root {
+    --sl-primary: #007a66;
+    --sl-primary-hover: #00675b;
+    --sl-text: #343533;
+    --sl-text-muted: #73746f;
+    --sl-border: #e7e5df;
+    --sl-bg-page: #fafaf8;
+}
