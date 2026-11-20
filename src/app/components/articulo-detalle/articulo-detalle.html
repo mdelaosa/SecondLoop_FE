@@ -1,0 +1,24 @@
+<header>
+  <app-navbar userRole="user"></app-navbar>
+</header>
+
+@let a = articulo();
+<main class="detalle">
+  <nav class="migas" aria-label="Migas de pan">
+    <a class="migas__link" routerLink="/">
+      <img class="migas__volver" src="assets/articulo-detalle/icon-chevron-right.svg" alt="" width="15" height="15" />
+      Explorar
+    </a>
+    <span class="migas__sep" aria-hidden="true">/</span>
+    <a class="migas__link" routerLink="/" [queryParams]="{ categoria: a.categoria }">{{ a.categoria }}</a>
+    <span class="migas__sep" aria-hidden="true">/</span>
+    <span class="migas__actual" aria-current="page">{{ a.titulo }}</span>
+  </nav>
+
+  <div class="detalle__principal">
+    <app-articulo-galeria [imagenes]="a.imagenes" [titulo]="a.titulo" />
+    <app-articulo-info class="detalle__info" [articulo]="a" />
+  </div>
+
+  <app-articulo-sobre [articulo]="a" />
+</main>

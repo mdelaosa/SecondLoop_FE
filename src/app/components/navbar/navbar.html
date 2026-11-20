@@ -1,0 +1,25 @@
+<nav class="navbar" aria-label="Navegación principal">
+    <div class="logo">
+        <span class="logo-text">SecondLoop</span>
+    </div>
+    <div class="nav-actions">
+        @if (!userRole || userRole === 'guest'){
+            <button class="btn-text">Registrarse</button>
+            <button class="btn-primary">Iniciar sesión</button>
+        }@else if (userRole === 'user' || userRole === 'moderator' || userRole === 'admin'){
+            @if (userRole === 'user') {
+                <button class="btn-text">Explorar</button>
+                <button class="btn-text">Mensajes</button>
+                <button class="btn-text">Perfil</button>
+                <button class="btn-primary">+ Vender</button>
+            }@else if (userRole === 'moderator') {
+                <button class="btn-text">Explorar</button>
+                <button class="btn-text">Moderación</button>
+            }@else if (userRole === 'admin') {
+                <button class="btn-text">Explorar</button>
+                <button class="btn-text">Moderación</button>
+                <button class="btn-text">Administración</button>
+            }
+        }
+    </div>
+</nav>

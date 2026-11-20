@@ -1,0 +1,237 @@
+:host {
+  display: block;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 27px;
+  color: var(--sl-text);
+
+  &__eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--sl-primary);
+  }
+
+  &__titulo {
+    max-width: 430px;
+    margin: 0;
+    padding-top: 11px;
+    font-size: 38.4px;
+    font-weight: 600;
+    line-height: 40.32px;
+    letter-spacing: -2px;
+  }
+
+  &__precio {
+    padding-top: 15px;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 37.5px;
+  }
+
+  &__etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0;
+    padding: 19px 0 0;
+    list-style: none;
+  }
+
+  &__descripcion {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--sl-border);
+    font-size: 13px;
+    line-height: 22.75px;
+    color: #676864;
+  }
+}
+
+.etiqueta {
+  padding: 7px 11px;
+  border: 1px solid var(--sl-border);
+  border-radius: 20px;
+  background: #fff;
+  font-size: 9px;
+  line-height: 13.5px;
+  color: var(--sl-text-muted);
+}
+
+.vendedor {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 19px 0;
+  border-bottom: 1px solid var(--sl-border);
+
+  &__avatar {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #b77b5e;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  &__datos {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__nombre {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 19.5px;
+  }
+
+  &__valoracion {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-top: 3px;
+    font-size: 9px;
+    line-height: 13.5px;
+    color: #888984;
+  }
+
+  &__respuesta {
+    padding-top: 4px;
+    font-size: 8px;
+    line-height: 12px;
+    color: #a0a19c;
+  }
+
+  &__perfil {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 15px;
+    color: var(--sl-primary);
+  }
+}
+
+.acciones {
+  display: grid;
+  grid-template-columns: 293fr 176fr;
+  gap: 9px;
+  padding-top: 19px;
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--sl-primary);
+  border-radius: 11px;
+  font-weight: 600;
+  transition: background-color 160ms ease;
+
+  &--primario {
+    background: var(--sl-primary);
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+
+    &:hover {
+      background: var(--sl-primary-hover);
+    }
+  }
+
+  &--secundario {
+    background: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--sl-primary);
+
+    &:hover {
+      background: #eef5f1;
+    }
+  }
+}
+
+.protegida {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 14px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 11px;
+  padding: 13px 14px;
+  border: 0;
+  border-radius: 11px;
+  background: #eef5f1;
+  text-align: left;
+
+  &__icono {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  &__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 8px;
+    line-height: 12px;
+    color: #7f837d;
+
+    strong {
+      font-size: 10px;
+      line-height: 15px;
+      color: var(--sl-text);
+    }
+  }
+}
+
+.reportar {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 9px;
+  line-height: 13.5px;
+  color: #92938e;
+}
+
+.boton:focus-visible,
+.protegida:focus-visible,
+.reportar:focus-visible,
+.vendedor__perfil:focus-visible {
+  outline: 3px solid rgba(0, 103, 91, 0.35);
+  outline-offset: 3px;
+}
