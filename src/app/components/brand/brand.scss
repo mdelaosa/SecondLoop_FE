@@ -1,0 +1,74 @@
+:host {
+  display: inline-flex;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: inherit;
+}
+
+.brand-symbol {
+  position: relative;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  flex: 0 0 36px;
+  border: 1.51px solid currentColor;
+  border-radius: 10px;
+}
+
+.brand-symbol::after {
+  content: "↻";
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.brand-name {
+  width: 105px;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -1.045px;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .brand-name {
+    font-size: 18.5px;
+  }
+}
+
+@media (max-width: 680px) {
+  .brand-symbol {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-symbol {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    border-radius: 8px;
+  }
+
+  .brand-name {
+    width: auto;
+    font-size: 18px;
+    letter-spacing: -0.9px;
+  }
+}
