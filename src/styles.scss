@@ -12,3 +12,8 @@ body {
 *, *::before, *::after {
     box-sizing: inherit;
 }
+
+:root {
+    --home-background-color: #fdf4e9;
+    --home-surface-color: #fdf4e9f2;
+}

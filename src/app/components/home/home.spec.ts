@@ -19,11 +19,12 @@ describe('Home', () => {
     expect(component).toBeTruthy();
   });
 
-  //it('should render the navbar inside the home header', () => {
-    // Buscar dentro del HTML de HOME el elemento <header>
-    //const header = fixture.nativeElement.querySelector('header');
+  it('should render the home hero and community impact', () => {
+    fixture.detectChanges();
 
-    // Comprueba que dentro del header esté <nav> 
-    //expect(header.querySelector('nav[aria-label="Navegación principal"]')).toBeTruthy();
-  //});
+    expect(fixture.nativeElement.querySelector('#home-title')?.textContent).toContain('Lo bueno');
+    expect(fixture.nativeElement.querySelector('.impact-card strong')?.textContent).toBe('2.840');
+    expect(fixture.nativeElement.querySelector('.hero-image-placeholder')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('app-footer')).toBeTruthy();
+  });
 });
