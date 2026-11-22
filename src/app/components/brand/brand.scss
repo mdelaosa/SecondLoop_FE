@@ -36,6 +36,19 @@
   white-space: nowrap;
 }
 
+.brand-second {
+  color: #494949;
+}
+
+.brand-loop {
+  color: #00675b;
+}
+
+.brand-light .brand-second,
+.brand-light .brand-loop {
+  color: #fdf4e9;
+}
+
 @media (max-width: 960px) {
   .brand-name {
     font-size: 18.5px;
