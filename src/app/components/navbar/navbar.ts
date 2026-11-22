@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class Navbar {
   userRole: 'guest' | 'user' | 'moderator' | 'admin' = 'guest';
+  menuOpen = false;
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
 }

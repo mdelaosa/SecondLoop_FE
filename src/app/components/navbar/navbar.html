@@ -2,7 +2,21 @@
     <div class="logo">
         <span class="logo-text">SecondLoop</span>
     </div>
-    <div class="nav-actions">
+    <button
+        class="menu-toggle"
+        type="button"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="nav-actions"
+        [attr.aria-label]="menuOpen ? 'Cerrar menú' : 'Abrir menú'"
+        (click)="toggleMenu()"
+    >
+        <span class="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    </button>
+    <div id="nav-actions" class="nav-actions" [class.is-open]="menuOpen">
         @if (!userRole || userRole === 'guest'){
             <button class="btn-text">Registrarse</button>
             <button class="btn-primary">Iniciar sesión</button>
@@ -20,6 +34,7 @@
                 <button class="btn-text">Moderación</button>
                 <button class="btn-text">Administración</button>
             }
+            <button class="btn-text">Desconectarse</button>
         }
     </div>
 </nav>
