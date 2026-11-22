@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Brand } from '../brand/brand';
 
 @Component({
@@ -8,7 +8,7 @@ import { Brand } from '../brand/brand';
   templateUrl: './navbar.html',
 })
 export class Navbar {
-  userRole: 'guest' | 'user' | 'moderator' | 'admin' = 'guest';
+  @Input() userRole: 'guest' | 'user' | 'moderator' | 'admin' = 'guest';
   menuOpen = false;
 
   toggleMenu(): void {
@@ -16,6 +16,7 @@ export class Navbar {
   }
 
   logout(): void {
+    // Cuando haya un sistema de autenticación, se implementará la lógica de cierre de sesión aquí.
     this.userRole = 'guest';
     this.menuOpen = false;
   }
