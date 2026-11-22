@@ -14,4 +14,9 @@ export class Navbar {
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
+
+  logout(): void {
+    this.userRole = 'guest';
+    this.menuOpen = false;
+  }
 }

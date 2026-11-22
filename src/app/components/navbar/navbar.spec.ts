@@ -43,4 +43,30 @@ describe('Navbar', () => {
 
     expect(fixture.nativeElement.textContent).not.toContain('Desconectarse');
   });
+
+  it('should reset authenticated roles to guest when disconnecting', () => {
+    for (const role of ['user', 'moderator', 'admin'] as const) {
+      const roleFixture = TestBed.createComponent(Navbar);
+      const roleComponent = roleFixture.componentInstance;
+      roleComponent.userRole = role;
+      roleComponent.menuOpen = true;
+      roleFixture.detectChanges();
+
+      const buttons = (roleFixture.nativeElement as HTMLElement).querySelectorAll('button');
+      const disconnectAction = Array.from(buttons).find(
+        (button) => button.textContent?.trim() === 'Desconectarse',
+      );
+
+      expect(disconnectAction).toBeTruthy();
+      disconnectAction?.click();
+      roleFixture.detectChanges();
+
+      expect(roleComponent.userRole).toBe('guest');
+      expect(roleComponent.menuOpen).toBe(false);
+      expect(roleFixture.nativeElement.textContent).toContain('Iniciar sesión');
+      expect(roleFixture.nativeElement.textContent).not.toContain('Desconectarse');
+
+      roleFixture.destroy();
+    }
+  });
 });
