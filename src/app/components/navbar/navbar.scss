@@ -6,34 +6,16 @@
     align-items: center;
     gap: 1.5rem;
     padding: 1rem clamp(1rem, 5vw, 4rem);
-    background-color: #faf5ef;
-    border-bottom: 1px solid rgba(0, 107, 84, 0.15);
+    background-color: var(--home-surface-color);
+    border-bottom: 1px solid #4949492e;
+}
+
+.navbar app-brand {
+    color: #00675B;
 }
 
 .menu-toggle {
     display: none;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    color: #00675B;
-
-    &::before {
-        content: "";
-        width: 0.7rem;
-        height: 0.7rem;
-        border: 2px solid currentColor;
-        border-radius: 50%;
-        box-shadow: 0.22rem 0 0 -1px #faf5ef, 0.22rem 0 0 1px currentColor;
-    }
-}
-
-.logo-text {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.035em;
 }
 
 .nav-actions {
@@ -145,13 +127,19 @@
     }
 }
 
-@media (max-width: 480px) {
-    .logo {
+@media (max-width: 680px) {
+    .navbar {
         gap: 0.5rem;
     }
 
-    .logo-text {
-        font-size: 1.1rem;
+    .nav-actions {
+        gap: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding-inline: 0.75rem;
     }
 
     .btn-text {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Brand } from '../brand/brand';
 
 @Component({
-  imports: [],
+  imports: [Brand],
   selector: 'app-navbar',
   styleUrl: './navbar.scss',
   templateUrl: './navbar.html',
