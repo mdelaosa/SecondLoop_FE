@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Home } from './home';
 
 describe('Home', () => {
@@ -8,6 +9,7 @@ describe('Home', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Home],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Home);
@@ -25,6 +27,7 @@ describe('Home', () => {
     expect(fixture.nativeElement.querySelector('#home-title')?.textContent).toContain('Lo bueno');
     expect(fixture.nativeElement.querySelector('.impact-card strong')?.textContent).toBe('2.840');
     expect(fixture.nativeElement.querySelector('.hero-image-placeholder')).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('app-footer')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('app-footer')).toBeFalsy();
+    expect(fixture.nativeElement.querySelector('header')).toBeFalsy();
   });
 });

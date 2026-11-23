@@ -1,5 +1,7 @@
 <nav class="navbar" aria-label="Navegación principal">
-    <app-brand></app-brand>
+    <a class="navbar-brand" routerLink="/" aria-label="SecondLoop, inicio" (click)="closeMenu()">
+        <app-brand></app-brand>
+    </a>
     <button
         class="menu-toggle"
         type="button"
@@ -15,22 +17,21 @@
         </span>
     </button>
     <div id="nav-actions" class="nav-actions" [class.is-open]="menuOpen">
-        @if (!userRole || userRole === 'guest'){
-            <button class="btn-text">Registrarse</button>
-            <button class="btn-primary">Iniciar sesión</button>
-        }@else if (userRole === 'user' || userRole === 'moderator' || userRole === 'admin'){
-            @if (userRole === 'user') {
-                <button class="btn-text">Explorar</button>
-                <button class="btn-text">Mensajes</button>
-                <button class="btn-text">Perfil</button>
-                <button class="btn-primary">+ Vender</button>
-            }@else if (userRole === 'moderator') {
-                <button class="btn-text">Explorar</button>
-                <button class="btn-text">Moderación</button>
-            }@else if (userRole === 'admin') {
-                <button class="btn-text">Explorar</button>
-                <button class="btn-text">Moderación</button>
-                <button class="btn-text">Administración</button>
+        @if (userRole() === null) {
+            <a class="btn-text" routerLink="/registro" (click)="closeMenu()">Registrarse</a>
+            <a class="btn-primary" routerLink="/login" (click)="closeMenu()">Iniciar sesión</a>
+        } @else {
+            <a class="btn-text" routerLink="/articulos" (click)="closeMenu()">Explorar</a>
+            @if (userRole() === 'USUARIO') {
+                <a class="btn-text" routerLink="/mensajes" (click)="closeMenu()">Mensajes</a>
+                <a class="btn-text" routerLink="/perfil" (click)="closeMenu()">Perfil</a>
+                <a class="btn-primary" routerLink="/articulos/nuevo" (click)="closeMenu()">+ Vender</a>
+            }
+            @if (userRole() === 'MODERADOR' || userRole() === 'ADMINISTRADOR') {
+                <a class="btn-text" routerLink="/moderacion" (click)="closeMenu()">Moderación</a>
+            }
+            @if (userRole() === 'ADMINISTRADOR') {
+                <a class="btn-text" routerLink="/administracion" (click)="closeMenu()">Administración</a>
             }
             <button class="btn-text" type="button" (click)="logout()">Desconectarse</button>
         }
