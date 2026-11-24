@@ -1,0 +1,291 @@
+<main class="explore-page">
+  <section class="explore-content" aria-labelledby="explore-title">
+    <p class="eyebrow">Recién llegado</p>
+    <h1 id="explore-title">Encuentra tu próxima favorita</h1>
+
+    <div class="search-controls">
+      <div class="search-toolbar">
+        <label class="search-field">
+          <span class="visually-hidden">Busca por artículo, marca o estilo</span>
+          <img class="search-icon" src="/assets/icon-lupa.svg" alt="" />
+          <input
+            type="search"
+            placeholder="Busca por artículo, marca o estilo"
+            [value]="searchTerm()"
+            (input)="onSearch($event)"
+          />
+        </label>
+
+        <button
+          class="filter-toggle"
+          type="button"
+          [attr.aria-expanded]="filtersOpen()"
+          aria-controls="explore-filters"
+          (click)="toggleFilters()"
+        >
+          <img src="/assets/icon-filtros.svg" alt="" />
+          <span>Filtros</span>
+        </button>
+      </div>
+
+      @if (filtersOpen()) {
+        <section id="explore-filters" class="filter-panel" aria-label="Filtros de artículos">
+          <div class="size-filter filter-field">
+            <span>Talla</span>
+            <div class="filter-dropdown" (keydown)="onDropdownKeydown($event, 'size')">
+              <button
+                class="filter-select"
+                type="button"
+                role="combobox"
+                aria-label="Talla"
+                aria-haspopup="listbox"
+                aria-controls="size-options"
+                [attr.aria-expanded]="isDropdownOpen('size')"
+                (click)="toggleDropdown('size', $event)"
+              >
+                <span class="filter-select-value">{{ selectedSize() || 'Todas' }}</span>
+                <span class="filter-chevron" aria-hidden="true"></span>
+              </button>
+              @if (isDropdownOpen('size')) {
+                <div
+                  id="size-options"
+                  class="filter-options"
+                  [class.filter-options-up]="dropdownOpensUp()"
+                  [style.--dropdown-max-height]="dropdownMaxHeight()"
+                  role="listbox"
+                  aria-label="Talla"
+                >
+                  <button
+                    class="filter-option"
+                    type="button"
+                    role="option"
+                    [attr.aria-selected]="selectedSize() === ''"
+                    [attr.tabindex]="selectedSize() === '' ? 0 : -1"
+                    (click)="selectFilter('size', '')"
+                  >
+                    Todas
+                  </button>
+                  @for (size of sizes; track size) {
+                    <button
+                      class="filter-option"
+                      type="button"
+                      role="option"
+                      [attr.aria-selected]="selectedSize() === size"
+                      [attr.tabindex]="selectedSize() === size ? 0 : -1"
+                      (click)="selectFilter('size', size)"
+                    >
+                      {{ size }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="gender-filter filter-field">
+            <span>Género</span>
+            <div class="filter-dropdown" (keydown)="onDropdownKeydown($event, 'gender')">
+              <button
+                class="filter-select"
+                type="button"
+                role="combobox"
+                aria-label="Género"
+                aria-haspopup="listbox"
+                aria-controls="gender-options"
+                [attr.aria-expanded]="isDropdownOpen('gender')"
+                (click)="toggleDropdown('gender', $event)"
+              >
+                <span class="filter-select-value">{{ selectedGender() || 'Todas' }}</span>
+                <span class="filter-chevron" aria-hidden="true"></span>
+              </button>
+              @if (isDropdownOpen('gender')) {
+                <div
+                  id="gender-options"
+                  class="filter-options"
+                  [class.filter-options-up]="dropdownOpensUp()"
+                  [style.--dropdown-max-height]="dropdownMaxHeight()"
+                  role="listbox"
+                  aria-label="Género"
+                >
+                  <button
+                    class="filter-option"
+                    type="button"
+                    role="option"
+                    [attr.aria-selected]="selectedGender() === ''"
+                    [attr.tabindex]="selectedGender() === '' ? 0 : -1"
+                    (click)="selectFilter('gender', '')"
+                  >
+                    Todas
+                  </button>
+                  @for (gender of genders; track gender.value) {
+                    <button
+                      class="filter-option"
+                      type="button"
+                      role="option"
+                      [attr.aria-selected]="selectedGender() === gender.value"
+                      [attr.tabindex]="selectedGender() === gender.value ? 0 : -1"
+                      (click)="selectFilter('gender', gender.value)"
+                    >
+                      {{ gender.label }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="category-filter filter-field">
+            <span>Categoría</span>
+            <div class="filter-dropdown" (keydown)="onDropdownKeydown($event, 'category')">
+              <button
+                class="filter-select"
+                type="button"
+                role="combobox"
+                aria-label="Categoría"
+                aria-haspopup="listbox"
+                aria-controls="category-options"
+                [attr.aria-expanded]="isDropdownOpen('category')"
+                (click)="toggleDropdown('category', $event)"
+              >
+                <span class="filter-select-value">{{ selectedCategory() || 'Todas' }}</span>
+                <span class="filter-chevron" aria-hidden="true"></span>
+              </button>
+              @if (isDropdownOpen('category')) {
+                <div
+                  id="category-options"
+                  class="filter-options"
+                  [class.filter-options-up]="dropdownOpensUp()"
+                  [style.--dropdown-max-height]="dropdownMaxHeight()"
+                  role="listbox"
+                  aria-label="Categoría"
+                >
+                  <button
+                    class="filter-option"
+                    type="button"
+                    role="option"
+                    [attr.aria-selected]="selectedCategory() === ''"
+                    [attr.tabindex]="selectedCategory() === '' ? 0 : -1"
+                    (click)="selectFilter('category', '')"
+                  >
+                    Todas
+                  </button>
+                  @for (group of categoryGroups; track group.label) {
+                    <div class="filter-option-group" role="group" [attr.aria-label]="group.label">
+                      <span class="filter-group-label">{{ group.label }}</span>
+                      @for (category of group.categories; track category) {
+                        <button
+                          class="filter-option"
+                          type="button"
+                          role="option"
+                          [attr.aria-selected]="selectedCategory() === category"
+                          [attr.tabindex]="selectedCategory() === category ? 0 : -1"
+                          (click)="selectFilter('category', category)"
+                        >
+                          {{ category }}
+                        </button>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="condition-filter filter-field">
+            <span>Estado</span>
+            <div class="filter-dropdown" (keydown)="onDropdownKeydown($event, 'condition')">
+              <button
+                class="filter-select"
+                type="button"
+                role="combobox"
+                aria-label="Estado"
+                aria-haspopup="listbox"
+                aria-controls="condition-options"
+                [attr.aria-expanded]="isDropdownOpen('condition')"
+                (click)="toggleDropdown('condition', $event)"
+              >
+                <span class="filter-select-value">{{ selectedCondition() || 'Todos' }}</span>
+                <span class="filter-chevron" aria-hidden="true"></span>
+              </button>
+              @if (isDropdownOpen('condition')) {
+                <div
+                  id="condition-options"
+                  class="filter-options"
+                  [class.filter-options-up]="dropdownOpensUp()"
+                  [style.--dropdown-max-height]="dropdownMaxHeight()"
+                  role="listbox"
+                  aria-label="Estado"
+                >
+                  <button
+                    class="filter-option"
+                    type="button"
+                    role="option"
+                    [attr.aria-selected]="selectedCondition() === ''"
+                    [attr.tabindex]="selectedCondition() === '' ? 0 : -1"
+                    (click)="selectFilter('condition', '')"
+                  >
+                    Todos
+                  </button>
+                  @for (condition of conditions; track condition) {
+                    <button
+                      class="filter-option"
+                      type="button"
+                      role="option"
+                      [attr.aria-selected]="selectedCondition() === condition"
+                      [attr.tabindex]="selectedCondition() === condition ? 0 : -1"
+                      (click)="selectFilter('condition', condition)"
+                    >
+                      {{ condition }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <button class="clear-filters" type="button" (click)="clearFilters()">
+            Limpiar filtros
+          </button>
+        </section>
+      }
+    </div>
+
+    <section class="results" aria-label="Artículos disponibles">
+      <div class="product-grid">
+        @for (product of filteredProducts(); track product.id) {
+          <article class="product-card">
+            <div
+              class="product-image-placeholder"
+              role="img"
+              [attr.aria-label]="'Imagen pendiente: ' + product.name"
+            >
+              <span class="condition-badge">{{ product.condition }}</span>
+              <button
+                class="favorite-toggle"
+                type="button"
+                [attr.aria-label]="
+                  isFavorite(product.id)
+                    ? 'Quitar ' + product.name + ' de favoritos'
+                    : 'Guardar ' + product.name + ' en favoritos'
+                "
+                [attr.aria-pressed]="isFavorite(product.id)"
+                (click)="toggleFavorite(product.id)"
+              >
+                <span aria-hidden="true">{{ isFavorite(product.id) ? '♥' : '♡' }}</span>
+              </button>
+            </div>
+
+            <div class="product-details">
+              <p class="product-brand">{{ product.brand }}</p>
+              <h2>{{ product.name }}</h2>
+              <p class="product-meta">{{ product.size }} · {{ product.gender }}</p>
+              <p class="product-price">{{ product.price }} €</p>
+            </div>
+          </article>
+        } @empty {
+          <p class="empty-state">No encontramos artículos que coincidan con tu búsqueda.</p>
+        }
+      </div>
+    </section>
+  </section>
+</main>
