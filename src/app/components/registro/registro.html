@@ -1,0 +1,79 @@
+<section class="registro">
+  <div class="tarjeta">
+    <p class="logo">SecondLoop</p>
+    <h1>Crea tu cuenta</h1>
+    <p class="subtitulo">Tu armario circular empieza hoy</p>
+
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+      <div class="fila">
+        <div class="campo">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" type="text" formControlName="nombre">
+          @if (registroForm.controls.nombre.invalid && registroForm.controls.nombre.touched) {
+            <p class="error">Escribe tu nombre</p>
+          }
+        </div>
+        <div class="campo">
+          <label for="apellidos">Apellidos</label>
+          <input id="apellidos" type="text" formControlName="apellidos">
+          @if (registroForm.controls.apellidos.invalid && registroForm.controls.apellidos.touched) {
+            <p class="error">Escribe tus apellidos</p>
+          }
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="username">Nombre de usuario</label>
+        <input id="username" type="text" placeholder="@" formControlName="username">
+        @if (registroForm.controls.username.invalid && registroForm.controls.username.touched) {
+          <p class="error">Mínimo 3 caracteres y sin espacios</p>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="tu@email.com" formControlName="email">
+        @if (registroForm.controls.email.invalid && registroForm.controls.email.touched) {
+          <p class="error">Escribe un email válido</p>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" placeholder="Mínimo 8 caracteres" formControlName="password">
+        @if (registroForm.controls.password.invalid && registroForm.controls.password.touched) {
+          <p class="error">Mínimo 8 caracteres, con letras y números</p>
+        }
+      </div>
+
+      <div class="fila">
+        <div class="campo">
+          <label for="provincia">Provincia</label>
+          <select id="provincia" formControlName="provincia">
+            <option value="" disabled>Seleccionar</option>
+            @for (provincia of provincias; track provincia) {
+              <option [value]="provincia">{{ provincia }}</option>
+            }
+          </select>
+          @if (registroForm.controls.provincia.invalid && registroForm.controls.provincia.touched) {
+            <p class="error">Elige tu provincia</p>
+          }
+        </div>
+        <div class="campo">
+          <label for="codigo_postal">Código postal</label>
+          <input id="codigo_postal" type="text" placeholder="28001" formControlName="codigo_postal">
+          @if (registroForm.controls.codigo_postal.invalid && registroForm.controls.codigo_postal.touched) {
+            <p class="error">5 números</p>
+          }
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="registroForm.invalid">Crear mi cuenta</button>
+    </form>
+
+    <p class="enlace">¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+  </div>
+</section>
+
+
+
