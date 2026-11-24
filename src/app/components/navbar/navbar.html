@@ -1,0 +1,39 @@
+<nav class="navbar" aria-label="Navegación principal">
+    <a class="navbar-brand" routerLink="/" aria-label="SecondLoop, inicio" (click)="closeMenu()">
+        <app-brand></app-brand>
+    </a>
+    <button
+        class="menu-toggle"
+        type="button"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="nav-actions"
+        [attr.aria-label]="menuOpen ? 'Cerrar menú' : 'Abrir menú'"
+        (click)="toggleMenu()"
+    >
+        <span class="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    </button>
+    <div id="nav-actions" class="nav-actions" [class.is-open]="menuOpen">
+        @if (userRole() === null) {
+            <a class="btn-text" routerLink="/registro" (click)="closeMenu()">Registrarse</a>
+            <a class="btn-primary" routerLink="/login" (click)="closeMenu()">Iniciar sesión</a>
+        } @else {
+            <a class="btn-text" routerLink="/articulos" (click)="closeMenu()">Explorar</a>
+            @if (userRole() === 'USUARIO') {
+                <a class="btn-text" routerLink="/mensajes" (click)="closeMenu()">Mensajes</a>
+                <a class="btn-text" routerLink="/perfil" (click)="closeMenu()">Perfil</a>
+                <a class="btn-primary" routerLink="/articulos/nuevo" (click)="closeMenu()">+ Vender</a>
+            }
+            @if (userRole() === 'MODERADOR' || userRole() === 'ADMINISTRADOR') {
+                <a class="btn-text" routerLink="/moderacion" (click)="closeMenu()">Moderación</a>
+            }
+            @if (userRole() === 'ADMINISTRADOR') {
+                <a class="btn-text" routerLink="/administracion" (click)="closeMenu()">Administración</a>
+            }
+            <button class="btn-text" type="button" (click)="logout()">Desconectarse</button>
+        }
+    </div>
+</nav>
