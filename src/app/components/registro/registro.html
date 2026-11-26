@@ -4,7 +4,7 @@
     <h1>Crea tu cuenta</h1>
     <p class="subtitulo">Tu armario circular empieza hoy</p>
 
-    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit($event)">
       <div class="fila">
         <div class="campo">
           <label for="nombre">Nombre</label>
@@ -45,6 +45,13 @@
           <p class="error">Mínimo 8 caracteres, con letras y números</p>
         }
       </div>
+        <div class="campo">
+          <label for="foto">Foto</label>
+          <input id="foto" type="text" formControlName="foto">
+          @if (registroForm.controls.foto.invalid && registroForm.controls.foto.touched) {
+            <p class="error">Link a tu foto</p>
+          }
+        </div>
 
       <div class="fila">
         <div class="campo">

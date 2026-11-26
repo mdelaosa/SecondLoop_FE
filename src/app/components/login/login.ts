@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ServiceAuth } from '../../services/service-auth';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +9,28 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './login.scss'
 })
 export class Login {
+  
+  ServicioAuth = inject(ServiceAuth)
+
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(8)] })
   });
 
-  onSubmit() {
+  async onSubmit(event: Event) {
     console.log(this.loginForm.value);
+    event.preventDefault()
+    const formValue = this.loginForm.getRawValue()
+try {
+    const response = await this.ServicioAuth.loginUsuario(
+      formValue.email,
+      formValue.password
+    )
+    console.log(response)
+    localStorage.setItem('token', (response as { token: string }).token);
+  } catch (error) {
+    console.error(error)
   }
+}
 }
 

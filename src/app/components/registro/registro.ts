@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { ServiceAuth } from '../../services/service-auth';
 
 @Component({
   selector: 'app-registro',
@@ -21,17 +22,33 @@ export class Registro {
     'Valencia', 'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza'
   ];
 
+  ServicioAuth = inject(ServiceAuth)
+  
   registroForm = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
-    apellidos: new FormControl('', [Validators.required]),
-    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.pattern(/^\S+$/)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/)]),
-    provincia: new FormControl('', [Validators.required]),
-    codigo_postal: new FormControl('', [Validators.required, Validators.pattern(/^\d{5}$/)])
+    nombre: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    apellidos: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    username: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(3), Validators.pattern(/^\S+$/)] }),
+    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/)] }),
+    foto: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    provincia: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    codigo_postal: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.pattern(/^\d{5}$/)] })
   });
 
-  onSubmit() {
+  async onSubmit(event: Event) {
     console.log(this.registroForm.value);
+    event.preventDefault()
+    const formValue = this.registroForm.getRawValue()
+
+    try {
+      const response = await this.ServicioAuth.registrarUsuario({
+        ...formValue,
+        codigo_postal: Number(formValue.codigo_postal),
+        localizacion: `${formValue.provincia}, ${formValue.codigo_postal}`
+      })
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

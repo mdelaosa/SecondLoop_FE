@@ -4,7 +4,7 @@
     <h1>Qué bueno verte de nuevo</h1>
     <p class="subtitulo">Entra para continuar donde lo dejaste</p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
       <label for="email">Email</label>
       <input id="email" type="email" placeholder="tu@email.com" formControlName="email">
       @if (loginForm.controls.email.invalid && loginForm.controls.email.touched) {
